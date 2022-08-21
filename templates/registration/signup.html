@@ -7,10 +7,15 @@
 {% endblock title %}
 
 {% block content %}
-    <form method="post">
+<div class="form">
+    <div class="col-4 offset-4 rounded mt-3 px-3 py-3">
+      <h2 class="text-center my-3">Register</h2>
+      <form method="post" class="d-grid">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary btn-large">Sign Up</button>
-    </form>
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-outline-primary btn-lg mt-3">Sign-up</button>
+      </form>
+    </div>
+  </div>
 {% endblock content %}
     

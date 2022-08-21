@@ -2,3 +2,13 @@ body{
     background-image: url('../imgs/double-bubble-outline.webp');
     background-repeat: repeat;
 }
+
+/* Forms */
+
+.form > div{
+  background-color: #ebeced80;
+}
+
+#hint_id_password1 {
+  display: none;
+}
