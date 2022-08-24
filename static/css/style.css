@@ -12,3 +12,9 @@ body{
 #hint_id_password1 {
   display: none;
 }
+
+/* Branding */
+.logo {
+  font-family: 'Sacramento', cursive;
+  font-size: 40px;
+}
