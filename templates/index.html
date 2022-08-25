@@ -1,9 +1,30 @@
-{% extends 'base.html' %}
+{% extends "layouts/base.html" %}
+{% load static %}
 
-{% block title %}
-    Home
-{% endblock title %}
+{% block title %} Settings {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <h1>Welcome to Django PhotoShare App</h1>
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+        <div class="row">
+            {% for image in images %}
+            <div class="col-6">
+                <div class="card">
+                    <a href="{{ image.get_absolute_url }}">
+                        <img class="rounded img-thumbnail" src="{{ image.photo.url }}" alt="{{ image.title }}">                    
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
 {% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
