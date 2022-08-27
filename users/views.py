@@ -1,5 +1,6 @@
 from django.contrib.auth import login as auth_login
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from .forms import CustomUserCreationForm
 
@@ -9,8 +10,9 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)
-            return redirect('home')
+            messages.success(request, 'Your account was created successfully!')
+
+            return redirect('/accounts/login')
     
     form = CustomUserCreationForm()
 

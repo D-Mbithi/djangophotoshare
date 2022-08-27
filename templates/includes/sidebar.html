@@ -20,6 +20,12 @@
                     aria-label="Toggle navigation"></a>
             </div>
             </div>
+            <div class="user-profile bg-light p-2 rounded text-center text-dark">
+                <img class="img-fluid rounded-circle border border-dark" src="/static/assets/img/default-profile-picture.png" alt="default profile picture">
+                <h3 class="my-3 text-capitalize">{{ request.user.username }}</h3>
+                <p>Images Uploaded {{ count }}</p>
+            </div>
+            <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
             <ul class="nav flex-column">
             <li class="nav-item  {% if 'dashboard' in segment %} active {% endif %}">
                 <a href="/" class="nav-link">

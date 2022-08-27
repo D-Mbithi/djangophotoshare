@@ -72,10 +72,12 @@
 
     <div class="container-fluid bg-soft">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6 offset-3 mt-1">
+                {% include 'includes/messages.html' %}
+            </div>
 
-                {% include 'includes/sidebar.html' %}
-            
+            <div class="col-12">
+                {% include 'includes/sidebar.html' %}            
                 {% block content %}{% endblock content %}
 
             </div>
@@ -83,7 +85,7 @@
     </div>
 
     {% include 'includes/scripts.html' %}    
-    
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
     <!-- Specific Page JS goes HERE  -->
     {% block javascripts %}{% endblock javascripts %}
 

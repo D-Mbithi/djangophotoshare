@@ -55,6 +55,8 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="theme-color" content="#ffffff">
 
+<script src="/static/vendor/bootstrap4-notify/bootstrap-notify.min.js"></script>
+
 <!-- Fontawesome -->
 <link type="text/css" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 
@@ -69,10 +71,11 @@
 
     <!-- Specific Page CSS goes HERE  -->
     {% block stylesheets %}{% endblock stylesheets %}
-
+    
+    <link type="text/css" href="@@path/vendor/animate.css/animate.min.css" rel="stylesheet">
 </head> 
 <body class="{% block body_class %}{% endblock body_class %}">
-           
+    {% include 'includes/messages.html' %}
     {% block content %}{% endblock content %}
 
     {% include 'includes/scripts.html' %}    

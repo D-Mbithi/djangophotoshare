@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Photo, Comment
 from .forms import CommentForm, PhotoForm
@@ -6,13 +8,17 @@ from .forms import CommentForm, PhotoForm
 # Create your views here.
 def home(request):
     photos = Photo.objects.all()
+    count = Photo.objects.all().filter(owner=request.user).count()
+    
     context = {
-        'images': photos
+        'images': photos,
+        'count': count,
     }
     template = 'index.html'
 
     return render(request, template, context)
 
+@login_required
 def photo_detail(request, pk):
     photo = get_object_or_404(Photo, pk=pk)
     template = 'photos/detail.html'
@@ -36,6 +42,7 @@ def photo_detail(request, pk):
     return render(request, template, context)
 
 
+@login_required
 def photo_upload(request):
 
     if request.method == "POST":
@@ -49,7 +56,8 @@ def photo_upload(request):
 
             photo  = Photo.objects.create(owner=user, title=title, photo=image, description=description)
             photo.save()
-
+            messages.success(request, 'Your image was uploaded successfully!')
+            
             return redirect('/')
     else:
         form = PhotoForm()
