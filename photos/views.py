@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -8,7 +10,11 @@ from .forms import CommentForm, PhotoForm
 # Create your views here.
 def home(request):
     photos = Photo.objects.all()
-    count = Photo.objects.all().filter(owner=request.user).count()
+    
+    # if request.user:
+        # count = Photo.objects.all().filter(owner=request.user).count()
+    count = 0 
+    
     
     context = {
         'images': photos,
@@ -22,6 +28,8 @@ def home(request):
 def photo_detail(request, pk):
     photo = get_object_or_404(Photo, pk=pk)
     template = 'photos/detail.html'
+
+    likes = photo.total_likes()
 
     if request.method == 'POST':
         comment = CommentForm(request.POST or None)
@@ -37,6 +45,8 @@ def photo_detail(request, pk):
     context = {
         'photo': photo,
         'form': form,
+        'likes': likes,
+
     }
 
     return render(request, template, context)
@@ -69,3 +79,11 @@ def photo_upload(request):
     template = 'photos/upload.html'
 
     return render(request, template, context)
+
+
+@login_required
+def photo_likes(request, pk):
+    photo = get_object_or_404(Photo, pk=request.POST.get('photo_id'))
+    photo.likes.add(request.user)
+    
+    return HttpResponseRedirect(reverse('photos:photo_detail', args=[str(pk)]))

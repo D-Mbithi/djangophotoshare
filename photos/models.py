@@ -12,10 +12,10 @@ class Photo(models.Model):
     photo = models.ImageField(upload_to='users/%Y/%m/%d/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=500, blank=True)
-    likes = models.ManyToManyField(User, related_name='blogpost_like')
+    likes = models.ManyToManyField(User, related_name='photo_likes')
 
 
-    def number_of_likes(self):
+    def total_likes(self):
         return self.likes.count()
 
     def __str__(self):
