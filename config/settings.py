@@ -162,8 +162,8 @@ MESSAGE_TAGS = {
 # django_project/settings.py
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 EMAIL_HOST = "smtp.gmail.com"  # new
-EMAIL_HOST_USER = "denniswamumbua@gmail.com"  # new
-EMAIL_HOST_PASSWORD = "fr1ct10n"  # new
+EMAIL_HOST_USER = "example@gmail.com"  # new
+EMAIL_HOST_PASSWORD = "examplepassword"  # new
 EMAIL_PORT = 587  # new
 EMAIL_USE_TLS = True  # new
 
