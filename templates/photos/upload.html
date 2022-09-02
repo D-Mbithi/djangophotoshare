@@ -1,27 +1,18 @@
-{% extends "layouts/base.html" %}
-{% load static %}
+{% extends "base.html" %}
 
-{% block title %} Settings {% endblock %}
-
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <main class="content">
-
-        {% include 'includes/navigation.html' %}
-
-        <section class="card col-8 p-5">
-            <div class="form">
-                <h2 class="title mb-5">Share Photo</h2>
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Upload Image" class="btn btn-outline-primary">
-                </form>
-            </div>
-        </section>
-    </main>
+<section class="card col-6 offset-3 p-5">
+    <div class="form">
+        <h2 class="title mb-3">Share Photo</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Upload Image" class="btn btn-outline-primary">
+        </form>
+    </div>
+</section>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

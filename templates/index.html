@@ -1,30 +1,30 @@
-{% extends "layouts/base.html" %}
-{% load static %}
+{% extends 'base.html' %}
 
-{% block title %} Settings {% endblock %}
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+<!-- Demo header-->
+<section class="py-3 header text-center">
+    <div class="container py-4">
+        <header>
+            <h1 class="display-4">PhotoShare</h1>
+        </header>
+    </div>
+</section>
 
-    <main class="content">
-
-        {% include 'includes/navigation.html' %}
-        <div class="row pt-3"  data-masonry='{"percentPosition": true }'>
-            {% for image in images %}
-            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                <div class="mb-2">
-                    <a href="{{ image.get_absolute_url }}">
-                        <img class="w-100 shadow-1-strong img-fluid" src="{{ image.photo.url }}" alt="{{ image.title }}">                    
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
+<section class="container">
+    <div class="row" data-masonry='{"percentPosition": true }'>
+        {% for image in images %}            
+        <div class="col-lg-4 col-md-6 grid-item mb-4">
+            <a href="{{ image.get_absolute_url }}" class="text-decoration-none">
+                <img class="img-fluid w-100 mb-3 img-thumbnail shadow-sm rounded-0" src="{{ image.photo.url }}" alt="{{ image.title }}">
+                <h2 class="h4">{{ image.title }}</h2>
+                <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </a>
         </div>
-    </main>
+        {% endfor %}
+    </div>
+</section>
 
 {% endblock content %}
-
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+    
