@@ -8,6 +8,7 @@ from .models import Photo, Comment
 from .forms import CommentForm, PhotoForm
 
 # Create your views here.
+@login_required
 def home(request):
     photos = Photo.objects.all()
     
@@ -43,7 +44,7 @@ def photo_detail(request, pk):
         form = CommentForm()
 
     context = {
-        'photo': photo,
+        'image': photo,
         'form': form,
         'likes': likes,
 

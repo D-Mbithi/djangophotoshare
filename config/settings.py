@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # ThirdParty
     "crispy_forms",
     "crispy_bootstrap5",
+    "fontawesomefree",
 
     # custom apps
     'users',
@@ -157,3 +158,14 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# django_project/settings.py
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
+EMAIL_HOST = "smtp.gmail.com"  # new
+EMAIL_HOST_USER = "denniswamumbua@gmail.com"  # new
+EMAIL_HOST_PASSWORD = "fr1ct10n"  # new
+EMAIL_PORT = 587  # new
+EMAIL_USE_TLS = True  # new
+
+
+PASSWORD_RESET_TIMEOUT = 14400

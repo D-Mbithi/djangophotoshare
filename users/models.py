@@ -4,7 +4,8 @@ from django.db import models
 
 # Create your models here.
 class User(AbstractUser):
+    is_email_verified = models.BooleanField(default=False)
 
     def __str__(self):
         full_name = f"{self.first_name} {self.last_name}".title()
-        return full_name
+        return self.username
