@@ -9,6 +9,8 @@ python-dotenv = "*"
 psycopg2-binary = "*"
 pillow = "*"
 crispy-bootstrap5 = "*"
+six = "*"
+fontawesomefree = "*"
 
 [dev-packages]
 
