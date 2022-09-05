@@ -55,6 +55,9 @@
         {% endif %}          
     </header>
     <main id="main">
+        <section class="container">
+            {% include 'partials/message.html' %}
+        </section>
         {% block content %}{% endblock content %}
     </main>
     <footer id="footer"></footer>
