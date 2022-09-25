@@ -7,14 +7,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Django PhotoShare | {% block title %}{% endblock title %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js">
-    <link rel="stylesheet" href="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js">
-    
-    <!-- FontAwesome  styles -->
-    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"> -->
+
+    <!-- Bootstrap Library -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
     <!-- Custom styles-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -22,15 +18,15 @@
   </head>
   <body>
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-3 py-3 mb-4 border-bottom container">
-        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <a href="/" class="d-flex align-items-center brand-font text-dark text-decoration-none">
             DjangoPhotoShare
         </a>
         
         {% if user.is_authenticated %}                
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="photo/upload" class="nav-link px-2 link-dark">Upload</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+            <li><a href="{% url 'index' %}" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="{% url 'photos:photo_upload' %}" class="nav-link px-2 link-dark">Upload</a></li>
+            <li><a href="{% url 'about' %}" class="nav-link px-2 link-dark">About</a></li>
         </ul>
         {% endif %}
             
@@ -38,19 +34,19 @@
         {% if user.is_authenticated%}
         <div class="flex-shrink-0 dropdown">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
-                <img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle" width="32" height="32">
+                <img src="{% static 'img/profile.jpg' %}" alt="mdo" class="rounded-circle" width="32" height="32">
             </a>
             <ul class="dropdown-menu text-small shadow" style="position: absolute; inset: auto 0px 0px auto; margin: 0px; transform: translate(0px, -34px);" data-popper-placement="top-end">
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/accounts/logout">Sign out</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
             </ul>
             </div>
         {% else %}                
         <div class="col-md-3 text-end">
-            <a href="/accounts/login" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/accounts/signup" type="button" class="btn btn-primary">Sign-up</a>
+            <a href="{% url 'login' %}" type="button" class="btn btn-outline-primary me-2">Login</a>
+            <a href="{% url 'signup' %}" type="button" class="btn btn-primary">Sign-up</a>
         </div>
         {% endif %}          
     </header>
@@ -61,8 +57,8 @@
         {% block content %}{% endblock content %}
     </main>
     <footer id="footer"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

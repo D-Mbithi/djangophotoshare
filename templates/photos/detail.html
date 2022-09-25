@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
+{% block title %}{{ image.title }}{% endblock title %}
 
 {% block content %}
 <!-- Demo header-->
@@ -49,9 +51,9 @@
     <div class="container">
         <div class="col-8 offset-2 border py-3 bg-light rounded" id="photo-comment">
             <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong mx-3"
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
-                    height="40" />
+                <div class="px-3">
+                    <img src="{% static 'img/profile.jpg' %}" alt="mdo" class="rounded-circle" width="60" height="60">
+                </div>
                 <form method="post">
                     <div class="form-outline w-100">
                         {% csrf_token %}
@@ -68,9 +70,7 @@
             {% for comment in image.comment_set.all %}
             <div class="border p-4 mb-2 bg-light rounded">
                 <div class="d-flex flex-start align-items-center">
-                    <img class="rounded-circle shadow-1-strong mx-3"
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
-                        height="60" />
+                    <img src="{% static 'img/profile.jpg' %}" alt="mdo" class="rounded-circle" width="60" height="60">
                     <div>
                         <h6 class="fw-bold text-primary mb-1 text-capitalize">{{ comment.user.username }}</h6>
                         <p class="text-muted small mb-0">
