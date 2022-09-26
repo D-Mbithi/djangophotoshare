@@ -26,7 +26,9 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
-        user.is_email_verified=True
+        user.is_email_verified = True
+        user.is_active = True
+
         user.save()
         messages.success(request, 'Your account emial was activated successfully!')
         
@@ -40,7 +42,7 @@ def activateEmail(request, user, to_email):
     mail_subject = "Activate your account"
     message = render_to_string(
         "accounts/template_activate_email.html",{
-            "use r": user.username,
+            "user": user.username,
             "domain":  get_current_site(request).domain,
             "uid": urlsafe_base64_encode(force_bytes(user.pk)),
             "token": account_activation_token.make_token(user),
@@ -51,7 +53,7 @@ def activateEmail(request, user, to_email):
     email = EmailMessage(mail_subject, message, to=[to_email])
     
     if email.send():
-        messages.success(request, f"Dear <b>{user}</b>, please confirm signup in your email <b>{to_email}</b>")
+        messages.success(request, f"Dear {user}, please confirm signup in your email {to_email}")
     else:
         messages.error(request, f"There was a problem sending email to {to_email}")
 
@@ -60,10 +62,12 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
             messages.success(request, 'Your account was created successfully!')
-            return redirect('accounts/login')
+            return redirect(login)
     else:
         form = CustomUserCreationForm()
 
@@ -85,7 +89,7 @@ def login(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if not user.is_email_verified:
+        if not user:
             messages.error(request, 'You account email has not be confirmed.')
         else:
             auth_login(request, user)
