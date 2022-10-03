@@ -23,7 +23,7 @@
             <a href="{{ image.get_absolute_url }}" class="text-decoration-none">
                 <img class="img-fluid w-100 mb-3 img-thumbnail shadow-sm rounded-0" src="{{ image.photo.url }}" alt="{{ image.title }}">
                 <h2 class="h4">{{ image.title }}</h2>
-                <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p class="small text-muted font-italic">{{ image.description }}</p>
             </a>
         </div>
         {% endfor %}
