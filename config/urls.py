@@ -9,6 +9,7 @@ from photos.views import home
 urlpatterns = [
     path('', home, name='index'),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('design/', TemplateView.as_view(template_name='design/design.html'), name='about'),
     path('', include('photos.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('users.urls')),

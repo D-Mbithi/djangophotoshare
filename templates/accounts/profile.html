@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    profile
+{% endblock title %}
+
+{% block content %}
+<section class="container">
+    <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-8 pb-3">
+                <div class="card card-body bg-white border-light shadow-sm mb-4">
+                    <h2 class="h5 mb-4">Profile information</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="first_name">First Name</label>
+                                <input name="first_name" class="form-control" id="first_name" type="text"
+                                    placeholder="Enter your first name" value="{{ user.first_name }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="last_name">Last Name</label>
+                                <input name="last_name" class="form-control" id="last_name" type="text"
+                                    placeholder="Also your last name" value="{{ user.last_name }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="username">Username</label>
+                                <input name="username" class="form-control" id="username" type="text"
+                                    placeholder="Enter your username" value="{{ user.username }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="email">Email</label>
+                                <input name="email" class="form-control" id="email" type="text"
+                                    placeholder="Also your email" value="{{ user.email }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="username">City</label>
+                                <input name="location" class="form-control" id="location" type="text" placeholder="Enter your City"
+                                    value="{{ user.location }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="birth_date">Birthdate</label>
+                                <input name="birth_date" class="form-control" id="birth_date" type="text"
+                                    placeholder="Also your Birthdate" value="{{ user.birth_date }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div>
+                                <label for="bio">Bio</label>
+                                <input name="bio" class="form-control" id="bio" type="text"
+                                    placeholder="Also your Bio" value="{{ user.bio }}" required rows="5">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-body bg-white border-light shadow-sm mb-4">
+                                <h2 class="h5 mb-4">Select profile photo</h2>
+                                <div class="d-xl-flex align-items-center">
+                                    <div class="file-field">
+                                        <div class="d-flex justify-content-xl-center ml-xl-3">
+                                            <div class="d-flex">
+                                                <span class="icon icon-md">
+                                                    <span class="fas fa-paperclip mr-3"></span>
+                                                </span>
+                                                <input name="avatar" type="file">
+                                                <div class="d-md-block text-left">
+                                                    <div class="font-weight-normal text-dark mb-1">Choose Image</div>
+                                                    <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Save All</button>
+                    </div>
+                </div>
+    </form>
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card border-light text-center p-0">
+                    <div class="profile-cover rounded-top">
+                        <img class="img-fluid" src="/static/img/profile-cover.jpg" alt="">
+                    </div>
+                    <div class="card-body pb-5">
+                        <img class="img-fluid rounded-circle w-50 mx-auto mt-n7" style="position:relative; top:-100px" src="{{ user.avatar.url }}" alt="{{ request.user.get_full_name }}">
+                        <div style="position:relative; top:-75px">
+                            <h4 class="fw-bold">{{request.user.get_full_name }}</h4>
+                            <h5 class="text-dark my-2">
+                                {{ request.user.username }} |
+                                <span class="font-weight-normal">
+                                    {{ request.user.email }}
+                                </span>
+                            </h5>
+                            <p class="text-gray text-start mb-4">{{ request.user.bio|default:'' }}</p>
+                            <a class="btn btn-sm btn-primary mr-2" href="#">
+                                <span class="fas fa-user-plus mr-1"></span>
+                                Connect
+                            </a>
+                            <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </form>
+</section>
+{% endblock content %}

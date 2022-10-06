@@ -8,11 +8,12 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
+from django.db import transaction
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UserForm
 from .token import account_activation_token
 
 # Create your views here.
@@ -36,8 +37,6 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Your account email token failed to activete')
 
-
-
 def activateEmail(request, user, to_email):
     mail_subject = "Activate your account"
     message = render_to_string(
@@ -56,7 +55,6 @@ def activateEmail(request, user, to_email):
         messages.success(request, f"Dear {user}, please confirm signup in your email {to_email}")
     else:
         messages.error(request, f"There was a problem sending email to {to_email}")
-
 
 def signup(request):
     if request.method == 'POST':
@@ -77,7 +75,6 @@ def signup(request):
     }
 
     return render(request, template, context)
-
 
 def login(request):
     if request.user.is_authenticated:
@@ -103,10 +100,20 @@ def login(request):
 
     return render(request, template, context)
 
-
 @login_required
+@transaction.atomic
 def profile(request):
-    template = 'profile.html'
-    context = {}
+    if request.method == "POST":
+        form = UserForm(request.POST, request.FILES, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(request.POST, instance=request.user)
+
+    template = 'accounts/profile.html'
+    context = {
+        'form': form
+    }
 
     return render(request, template, context)
